@@ -9,15 +9,15 @@ use App\Http\Controllers\EmailVerificationController;
 
 // Redirect to login if accessing the root
 Route::get('/', function () {
-    return redirect()->route('login');
+    return redirect()->route('auth.login');
 });
 
 // Login and Register routes
-Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-Route::get('/register', [AuthController::class, 'create'])->name('register');
-Route::post('/register', [AuthController::class, 'store'])->name('register.store');
-Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name('forgot_password');
+Route::get('/login', [AuthController::class, 'loginForm'])->name('auth.login');
+Route::post('/login', [AuthController::class, 'login'])->name(' auth.login.submit');
+Route::get('/register', [AuthController::class, 'create'])->name(' auth.register');
+Route::post('/register', [AuthController::class, 'store'])->name('auth.register.store');
+Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name('auth.forgot_password');
 
 // Email Verification routes
 Route::get('/email/verify', function (Request $request) {
@@ -46,4 +46,7 @@ Route::get('/send-test-email', [EmailVerificationController::class, 'sendTestEma
 
 
 
-Route::get('/dashboard',[UserController::class, 'dashboard']);
+Route::get('/dashboard',[UserController::class, 'dashboard'])->name('dashboard');
+Route::get('/about',[UserController::class, 'about'])->name('about');
+Route::get('/category',[UserController::class, 'category'])->name('category');
+Route::get('/contact',[UserController::class,'contact'])->name('contact');

@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function loginForm()
     {
-        return view('login');
+        return view('auth.login');
     }
 
     public function login(Request $request)
@@ -22,25 +22,25 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($request->only('email', 'password'))) {
-            $user = Auth::user();
+        // if (Auth::attempt($request->only('email', 'password'))) {
+        //     $user = Auth::user();
 
 
-            if ($user->hasVerifiedEmail()) {
-                return redirect()->route('index');
-            } else {
-                Auth::logout();
-                return redirect()->route('verification.notice')
-                    ->with('message', 'Please verify your email before logging in.');
-            }
-        }
-
-        return redirect()->back()->withErrors(['email' => 'Invalid credentials.']);
+        //     if ($user->hasVerifiedEmail()) {
+        //         return redirect()->route('index');
+        //     } else {
+        //         Auth::logout();
+        //         return redirect()->route('verification.notice')
+        //             ->with('message', 'Please verify your email before logging in.');
+        //     }
+        // }
+        return redirect('dashboard');
+        // return redirect()->back()->withErrors(['email' => 'Invalid credentials.']);
     }
 
     public function create()
     {
-        return view('register');
+        return view('auth.register');
     }
 
     public function store(Request $request)
@@ -59,12 +59,12 @@ class AuthController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->route('login')->with('success', 'Registration successful! Please check your email to verify your account.');
+        return redirect()->route('auth.login')->with('success', 'Registration successful! Please check your email to verify your account.');
     }
 
 
     public function forgot_password()
     {
-        return view('forgot_password');
+        return view(' auth.forgot_password');
     }
 }
