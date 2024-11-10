@@ -67,7 +67,7 @@
                                         <li><a href="{{ route('dashboard') }}">Home</a>
 
                                         </li>
-                                        <li><a href="{{route('about')}}">About Us</a></li>
+                                        <li><a href="{{ route('about') }}">About Us</a></li>
                                         <li class="dropdown"><a href="#">Recipes</a>
                                             <ul>
                                                 <li><a href="recipes.html">Recipes 01</a></li>
@@ -118,11 +118,29 @@
                                     </div>
                                 </div>
                                 <ul class="login-info">
-                                    <li><a href="{{ route('login') }}"><span class="icon fa fa-user"></span>Login</a>
+                                    <li>
+                                        <a href="{{ route('auth.login') }}">
+                                            <span class="icon fa fa-user"></span> Login
+                                        </a>
                                     </li>
-                                    <li class="recipe"><a href="add-recipe.html"><span
-                                                class="fa fa-plus-circle"></span>&nbsp; Add Recipe</a></li>
+                                    <li class="recipe">
+                                        <a href="add-recipe.html">
+                                            <span class="fa fa-plus-circle"></span> Add Recipe
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <form action="{{ route('auth.logout') }}" method="POST"
+                                            style="display: inline;">
+                                            @csrf
+                                            <a href=""
+                                                onclick="event.preventDefault(); this.closest('form').submit();"
+                                                class="link-light" title="Logout">
+                                                <span class="icon fa fa-arrow-right"></span> Logout
+                                            </a>
+                                        </form>
+                                    </li>
                                 </ul>
+
                             </div>
 
                         </div>
@@ -141,7 +159,8 @@
                     <div class="nav-logo"><a href="index.html"><img src="images/logo-2.png" alt=""
                                 title=""></a></div>
                     <div class="menu-outer">
-                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                    </div>
                 </nav>
             </div><!-- End Mobile Menu -->
 
@@ -1569,8 +1588,9 @@
                             <div class="overlay-inner">
                                 <div class="content">
                                     <a href="/assets/images/resource/instagram-3.jpg" data-fancybox="instagram"
-                                        data-caption="" class="lightbox-image option-btn" title="Image Caption Here"
-                                        data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
+                                        data-caption="" class="lightbox-image option-btn"
+                                        title="Image Caption Here" data-fancybox-group="example-gallery"><span
+                                            class="fa fa-search"></span></a>
                                 </div>
                             </div>
                         </div>

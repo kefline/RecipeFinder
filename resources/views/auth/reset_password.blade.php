@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>RecipeFinder Login</title>
+    <title>RecipeFinder reset</title>
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/main.css" rel="stylesheet">
     <link href="/assets/css/responsive.css" rel="stylesheet">
@@ -24,16 +24,14 @@
         <div class="preloader"></div>
 
 
+
         <section class="page-title" style="background-image:url(/assets/images/background/17.png)">
             <div class="auto-container">
-                <h1>login</h1>
+                <h1>Reset Password</h1>
             </div>
         </section>
 
-        <!-- Login Container -->
         <div class="login-container margin">
-            <div class="top-layer" style="background-image:url(/assets/images/background/20.png)"></div>
-            <div class="bottom-layer" style="background-image:url(/assets/images/background/21.png)"></div>
             <div class="auto-container">
                 <div class="inner-container">
 
@@ -41,65 +39,39 @@
                         <img src="/assets/images/resource/login.jpg" alt="" />
 
                         <div class="login-form">
-                            <div class="pattern-layer" style="background-image:url(/assets/images/background/18.png)">
-                            </div>
-                            <div class="pattern-layer-2" style="background-image:url(/assets/images/background/19.png)">
-                            </div>
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-auto">
-                                        <a href="#" class="btn btn-primary">
-                                            <span class="fa fa-facebook-f"></span> Login with Facebook
-                                        </a>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="#" class="btn btn-success">
-                                            <span class="fa fa-google"></span> Login with Google
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="text-center my-4">
-                                <div class="divider">
-                                    <span class="divider-text">or fill the form</span>
-                                </div>
-                            </div>
-
                             @if ($errors->any())
                                 <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $error)
-                                        <ul>{{ $error }}</ul>
-                                    @endforeach
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
-
                             @endif
 
-                            <form method="POST" action="{{ route('auth.login') }}">
+                            <form method="POST" action="{{route('password.update')}}">
+
                                 @csrf
+                               bn 
 
                                 <div class="form-group">
-                                    <input type="email" name="email" placeholder="email" required>
+                                    <input type="email" name="email" id="email" placeholder="Email" required value="{{old('email')}}">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password" placeholder="Password"
+                                        required>
+                                </div>.
+                                <div class="form-group">
+                                    <input type="password" name="password_confirmation" id="confirm_password"  placeholder="confirm password"  required>
                                 </div>
 
-                                <div class="form-group">
-                                    <input type="password" name="password" placeholder="Password" required>
-                                </div>
 
-                                <div class="form-group">
-                                    <div class="check-box"><input type="checkbox" name="shipping-option"
-                                            id="account-option"> &ensp; <label for="account-option">Remember
-                                            me</label> <a href="{{ route('auth.forgot_password') }}">Forgot password?</a>
-                                    </div>
-                                </div>
+
 
                                 <div class="form-group">
                                     <button class="theme-btn btn-style-one" type="submit" name="submit-form"><span
-                                            class="txt">Login</span></button>
-                                    Don't have an account? <a href="/register">register</a>
+                                            class="txt">Reset</span></button>
                                 </div>
-
-
 
                             </form>
 

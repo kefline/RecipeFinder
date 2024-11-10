@@ -6,47 +6,50 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\SocialiteController;
 
-// Redirect to login if accessing the root
-Route::get('/', function () {
-    return redirect()->route('auth.login');
+
+
+// Route::controller(SocialiteController::class)->group(function () {
+//     Route::get('auth/redirection/{provider}', 'authproviderRedirect')->name('auth.redirection');
+//     Route::get('auth/{provider}/callback', 'Socialauthentification')->name('auth.callback');
+// });
+
+Route::controller(SocialiteController::class)->group(function () {
+    Route::get('auth/google', 'googlelogin')->name('auth.google');
+    Route::get('auth/google-callback', 'googleAunthentication')->name('auth.google-callback');
+    Route::get('auth/facebook', 'facebooklogin')->name('auth.facebook');
+    Route::get('auth/facebook-callback', 'facebookAunthentication')->name('auth.facebook-callback');
 });
 
-// Login and Register routes
-Route::get('/login', [AuthController::class, 'loginForm'])->name('auth.login');
-Route::post('/login', [AuthController::class, 'login'])->name(' auth.login.submit');
-Route::get('/register', [AuthController::class, 'create'])->name(' auth.register');
+
+Route::get('/', [AuthController::class, 'loginForm'])->name('auth.login');
+Route::post('/login', [AuthController::class, 'login'])->name('auth.login.submit');
+Route::get('/register', [AuthController::class, 'create'])->name('auth.register');
 Route::post('/register', [AuthController::class, 'store'])->name('auth.register.store');
-Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name('auth.forgot_password');
+Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-// Email Verification routes
-Route::get('/email/verify', function (Request $request) {
-    if ($request->user()->hasVerifiedEmail()) {
-        return redirect()->route('index'); // Redirect to index if already verified
-    }
-    return view('verify-email'); // Show the verification notice if not verified
-})->middleware('auth')->name('verification.notice');
+//forgot password and reset password through either email or phone 
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect()->route('login')->with('success', 'Your email has been verified. You can now log in.'); // Redirect to login
-})->middleware(['auth', 'signed'])->name('verification.verify');
+// Route::get('/forgot-password', [AuthController::class, 'forgot_password'])->name('auth.forgot_password');
+Route::get('/forgot-password', function () {
+    return view('auth.forgot_password');
+})->name('password.request');
 
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'passwordEmail']);
 
-// Dashboard or home page route protected by auth and verified email
-Route::get('/index', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.reset_password', ['token' => $token]);
+})->name('password.reset');
 
-Route::get('/send-test-email', [EmailVerificationController::class, 'sendTestEmail'])->name('send.test.email');
+Route::post('/reset-password', [ForgotPasswordController::class, 'passwordUpdate'])->name('password.update');
 
 
+// Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 
 
-
-Route::get('/dashboard',[UserController::class, 'dashboard'])->name('dashboard');
-Route::get('/about',[UserController::class, 'about'])->name('about');
-Route::get('/category',[UserController::class, 'category'])->name('category');
-Route::get('/contact',[UserController::class,'contact'])->name('contact');
+Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+Route::get('/about', [UserController::class, 'about'])->name('about');
+Route::get('/category', [UserController::class, 'category'])->name('category');
+Route::get('/contact', [UserController::class, 'contact'])->name('contact');

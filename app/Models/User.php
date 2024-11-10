@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail; // Required for email verification
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Contracts\Auth\MustVerifyEmail; 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements MustVerifyEmail // Implement the MustVerifyEmail interface
+class User extends Authenticatable implements MustVerifyEmail , CanResetPassword
 {
     use HasFactory, Notifiable;
 
@@ -20,6 +21,11 @@ class User extends Authenticatable implements MustVerifyEmail // Implement the M
         'name',
         'email',
         'password',
+        'google_id',
+        'facebook_id',
+        'phone',
+        // 'auth_provider',
+        // 'auth_provider_id',
     ];
 
     /**

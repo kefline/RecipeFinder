@@ -3,42 +3,65 @@
 
 <head>
     <meta charset="utf-8">
-    <title>RecipeFinder Register</title>
+    <title>RecipeFinder Login</title>
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/main.css" rel="stylesheet">
     <link href="/assets/css/responsive.css" rel="stylesheet">
-
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
-    <link rel="icon" href="images/favicon.png" type="image/x-icon">
-
+    <link rel="icon" href="/assets/images/favicon.png" type="image/x-icon">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
-
 </head>
 
 <body>
 
     <div class="page-wrapper">
-
         <div class="preloader"></div>
-
-
 
         <section class="page-title" style="background-image:url(/assets/images/background/17.png)">
             <div class="auto-container">
-                <h1>Register</h1>
+                <h1>Login</h1>
             </div>
         </section>
 
+        <!-- Login Container -->
         <div class="login-container margin">
+            <div class="top-layer" style="background-image:url(/assets/images/background/20.png)"></div>
+            <div class="bottom-layer" style="background-image:url(/assets/images/background/21.png)"></div>
             <div class="auto-container">
                 <div class="inner-container">
-
                     <div class="image">
-                        <img src="/assets/images/resource/login.jpg" alt="" />
-
+                        <img src="/assets/images/resource/login.jpg" alt="Login Image" />
                         <div class="login-form">
+                            <div class="pattern-layer" style="background-image:url(/assets/images/background/18.png)"></div>
+                            <div class="pattern-layer-2" style="background-image:url(/assets/images/background/19.png)"></div>
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-auto">
+                                        <a href="{{route('auth.facebook')}}" class="btn btn-primary">
+                                            <span class="fa fa-facebook-f"></span> Login with Facebook
+                                        </a>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="{{route('auth.google')}}" class="btn btn-success">
+                                            <span class="fa fa-google"></span> Login with Google
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center my-4">
+                                <div class="divider">
+                                    <span class="divider-text">or fill the form</span>
+                                </div>
+                            </div>
+
+                            @if (session('status'))
+                                <div class="alert alert-info">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -49,46 +72,40 @@
                                 </div>
                             @endif
 
-                            <form method="POST" action="{{ route('auth.register.store') }}">
+                            <form method="POST" action="{{ route('auth.login.submit') }}">
                                 @csrf
 
                                 <div class="form-group">
-                                    <input type="text" name="name" id="name" placeholder="Full Name"
-                                        required>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" name="email" id="email" placeholder="Email" required>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="password" id="password" placeholder="Password"
-                                        required>
-                                </div>.
-                                <div class="form-group">
-                                    <input type="password" name="password_confirmation" id="confirm_password"  placeholder="confirm password"  required>
+                                    <input type="email" name="email" placeholder="Email" required>
                                 </div>
 
-
-
-
                                 <div class="form-group">
-                                    <button class="theme-btn btn-style-one" type="submit" name="submit-form"><span
-                                            class="txt">Register</span></button>
-                                    Already have an account? <a href="/login">Login</a>
+                                    <input type="password" name="password" placeholder="Password" required>
                                 </div>
 
+                                <div class="form-group">
+                                    <div class="check-box">
+                                        <input type="checkbox" name="remember" id="account-option">
+                                        &ensp; <label for="account-option">Remember me</label>
+                                        <a href="{{ route('password.request') }}">Forgot password?</a>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="theme-btn btn-style-one" type="submit" name="submit-form">
+                                        <span class="txt">Login</span>
+                                    </button>
+                                    Don't have an account? <a href="{{ route('auth.register') }}">Register</a>
+                                </div>
                             </form>
-
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
 
         <footer class="main-footer" style="background-image:url(/assets/images/background/5.png)">
             <div class="auto-container">
-
                 <ul class="footer-nav">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Recipes</a></li>
@@ -104,10 +121,9 @@
                     <li><a href="#"><span class="fa fa-twitter"></span></a></li>
                     <li><a href="#"><span class="fa fa-youtube-play"></span></a></li>
                 </ul>
-                <div class="copyright">&copy; All Right Reserved 2020</div>
+                <div class="copyright">&copy; All Rights Reserved 2020</div>
             </div>
         </footer>
-
     </div>
 
     <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-arrow-circle-up"></span></div>

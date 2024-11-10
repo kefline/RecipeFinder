@@ -22,20 +22,11 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // if (Auth::attempt($request->only('email', 'password'))) {
-        //     $user = Auth::user();
+        if (Auth::attempt($request->only('email', 'password'))) {
+            return redirect()->route('dashboard')->with('success', 'Welcome back!');
+        }
 
-
-        //     if ($user->hasVerifiedEmail()) {
-        //         return redirect()->route('index');
-        //     } else {
-        //         Auth::logout();
-        //         return redirect()->route('verification.notice')
-        //             ->with('message', 'Please verify your email before logging in.');
-        //     }
-        // }
-        return redirect('dashboard');
-        // return redirect()->back()->withErrors(['email' => 'Invalid credentials.']);
+        return redirect()->back()->withErrors(['email' => 'Invalid credentials.']);
     }
 
     public function create()
@@ -49,22 +40,29 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'phone' => 'required|string|min:10|max:15'
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
+            'phone' => $request->phone,
         ]);
 
-        event(new Registered($user));
+        // event(new Registered($user));
 
         return redirect()->route('auth.login')->with('success', 'Registration successful! Please check your email to verify your account.');
     }
 
-
     public function forgot_password()
     {
-        return view(' auth.forgot_password');
+        return view('auth.forgot_password');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('auth.login')->with('success', 'You have been logged out.');
     }
 }
