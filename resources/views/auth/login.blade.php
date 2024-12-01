@@ -33,17 +33,19 @@
                     <div class="image">
                         <img src="/assets/images/resource/login.jpg" alt="Login Image" />
                         <div class="login-form">
-                            <div class="pattern-layer" style="background-image:url(/assets/images/background/18.png)"></div>
-                            <div class="pattern-layer-2" style="background-image:url(/assets/images/background/19.png)"></div>
+                            <div class="pattern-layer" style="background-image:url(/assets/images/background/18.png)">
+                            </div>
+                            <div class="pattern-layer-2" style="background-image:url(/assets/images/background/19.png)">
+                            </div>
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-auto">
-                                        <a href="{{route('auth.facebook')}}" class="btn btn-primary">
+                                        <a href="{{ route('auth.facebook') }}" class="btn btn-secondary">
                                             <span class="fa fa-facebook-f"></span> Login with Facebook
                                         </a>
                                     </div>
                                     <div class="col-auto">
-                                        <a href="{{route('auth.google')}}" class="btn btn-success">
+                                        <a href="{{ route('auth.google') }}" class="btn btn-success">
                                             <span class="fa fa-google"></span> Login with Google
                                         </a>
                                     </div>
@@ -86,17 +88,19 @@
                                 <div class="form-group">
                                     <div class="check-box">
                                         <input type="checkbox" name="remember" id="account-option">
-                                        &ensp; <label for="account-option">Remember me</label>
-                                        <a href="{{ route('password.request') }}">Forgot password?</a>
+                                        &ensp; <label for="account-option" style="font-size: 16px">Remember me</label>
+                                        <a href="{{ route('password.request') }}" style="font-size: 16px">Forgot password?</a>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group d-flex justify-content-between align-items-center">
                                     <button class="theme-btn btn-style-one" type="submit" name="submit-form">
                                         <span class="txt">Login</span>
                                     </button>
-                                    Don't have an account? <a href="{{ route('auth.register') }}">Register</a>
+                                    <p style="font-size: 16px">Don't have an account?
+                                        <a href="{{ route('auth.register') }}" class="register-link" style="font-size: 16px">Register</a>
+                                    </p>
                                 </div>
+
                             </form>
                         </div>
                     </div>
@@ -121,7 +125,6 @@
                     <li><a href="#"><span class="fa fa-twitter"></span></a></li>
                     <li><a href="#"><span class="fa fa-youtube-play"></span></a></li>
                 </ul>
-                <div class="copyright">&copy; All Rights Reserved 2020</div>
             </div>
         </footer>
     </div>

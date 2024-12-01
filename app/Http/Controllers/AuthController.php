@@ -36,12 +36,14 @@ class AuthController extends Controller
 
     public function store(Request $request)
     {
+       
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'phone' => 'required|string|min:10|max:15'
         ]);
+     
 
         $user = User::create([
             'name' => $request->name,
@@ -49,6 +51,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
         ]);
+        // dd($user);
 
         // event(new Registered($user));
 

@@ -88,12 +88,12 @@
  ***/
 
 body {
-	font-family: 'Work Sans', sans-serif;
-	font-size:14px;
+	font-family:Montserrat light;
+	font-size:18px;
 	color:#777777;
 	line-height:1.7em;
 	font-weight:400;
-	background:#5ecfb7;
+	background:#D0B8A8;
 	-webkit-font-smoothing: antialiased;
 	-moz-font-smoothing: antialiased;
 }

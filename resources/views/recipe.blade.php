@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>RecipeFinder | Category</title>
+    <title>RecipeFinder| Recipes</title>
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/main.css" rel="stylesheet">
     <link href="/assets/css/responsive.css" rel="stylesheet">
@@ -12,10 +12,8 @@
 
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
     <link rel="icon" href="images/favicon.png" type="image/x-icon">
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
 
 </head>
 
@@ -113,17 +111,15 @@
                 <nav class="menu-box">
                     <div class="nav-logo"><a href="index.html"><img src="images/logo-2.png" alt=""
                                 title=""></a></div>
-                    <div class="menu-outer">
-                        </div>
+                    <div class="menu-outer"></div>
                 </nav>
             </div>
-
 
         </header>
 
         <section class="page-title" style="background-image:url(/assets/images/background/10.jpg)">
             <div class="auto-container">
-                <h1>Categories</h1>
+                <h1>Recipes</h1>
             </div>
         </section>
 
@@ -158,102 +154,59 @@
 
                             </div>
                         </form>
+
                     </div>
 
                 </div>
             </div>
         </section>
 
-        <section class="categories-section">
+        <section class="popular-recipes-section style-three">
             <div class="auto-container">
+                <div class="sec-title">
+                    <div class="clearfix">
+                        <div class="pull-left">
+                            <h2>Popular Recipe Posts</h2>
+                            <div class="text">Explore the most loved and frequently tried recipes from Tanzanian
+                                cuisine. Whether you're craving a traditional dish or something new, these recipes are
+                                sure to inspire your next meal.</div>
+                        </div>
 
-                <div class="sec-title centered">
-                    <h2>Recipe Categories in Tanzania</h2>
-                    <div class="text">Tanzania offers a wide range of delicious dishes that reflect the country's
-                        rich cultural diversity. From the coastal flavors of Swahili cuisine to hearty meals from the
-                        inland highlands, explore the different categories of Tanzanian recipes, including traditional
-                        staples, street foods, and festive dishes that bring people together.</div>
-                </div>
-
-
-                <div class="categories-tab">
-
-                    <div class="tab-btns-box">
-                        <div class="tabs-header">
-
-                            <ul class="product-tab-btns clearfix">
-                                @foreach ($recipes as $recipe)
-                                    <li class="p-tab-btn active-btn" data-tab="#p-tab-1">{{ $recipe->category }}
-                                            </li>
-                                @endforeach
-
-                            </ul>
+                        <div class="pull-right">
+                            <a href="{{ route('recipe') }}" class="theme-btn btn-style-one"><span class="txt">See
+                                    all Post</span></a>
                         </div>
                     </div>
-
-                    <div class="p-tabs-content">
-
-                        <div class="p-tab active-tab" id="p-tab-1">
-                            <div class="project-carousel owl-theme owl-carousel">
-
-								@foreach ($recipes as $recipe)
-								<div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-											<img src="{{ $recipe->image_url ? asset('storage/' . $recipe->image_url) : asset('assets/images/default.jpg') }}"
-											alt="Recipe Image" class="recipe-image" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="#">{{$recipe->title}}</a></h4>
-                                            <div class="text">{{ Str::limit($recipe->description, 150) }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-								@endforeach
-
-                              
+                </div>
+            </div>
+            <div class="outer-container">
+                <div class="row clearfix">
+                    @foreach ($recipes as $recipe)
+                    <div class="recipes-block col-lg-3 col-md-6 col-sm-12">
+                        <div class="inner-box">
+                            <div class="image">
+                                <a href="{{ route('recipe.show', $recipe->id) }}">
+                                    <img src="{{ $recipe->image_url ? asset('storage/' . $recipe->image_url) : asset('assets/images/default.jpg') }}"
+                                         alt="Recipe Image" class="recipe-image" />
+                                </a>
+                            </div>
+                            <div class="lower-content">
+                                <div class="category">{{ $recipe->category }}</div>
+                                <h4><a href="{{ route('recipe.show', $recipe->id) }}" class="recipe-title">{{ $recipe->title }}</a></h4>
+                                <div class="text">{{ Str::limit($recipe->description, 100) }}</div>
+                                <ul class="post-meta">
+                                    <li><span class="icon flaticon-clock-3"></span>{{ $recipe->cook_time }} Minutes</li>
+                                    <li><span class="icon flaticon-business-and-finance"></span>{{ $recipe->peoples }} People</li>
+                                </ul>
                             </div>
                         </div>
-
-
                     </div>
+                @endforeach
+                
 
                 </div>
             </div>
-        </section>
-        
-        <section class="call-to-action-section" style="background-image:url(/assets/images/background/2.jpg)">
-            <div class="auto-container">
-                <div class="row clearfix">
 
-                    <div class="column col-lg-6 col-md-12 col-sm-12">
-                        <div class="sec-title light">
-                            <div class="title">Pizza</div>
-                            <h2>Your Complete Christmas <br> Dinner Planning Guide</h2>
-                            <div class="text">Special occasions call for extraordinary food. Whether your gathering
-                                is big or small, casual or formal, here's everything you need to create a crowd-pleasing
-                                holiday feast</div>
-                        </div>
-                        <a href="{{route('recipe')}}" class="theme-btn btn-style-two"><span class="txt">Check
-                                Recipe</span></a>
-                    </div>
-
-                    <!-- Column -->
-                    <div class="column col-lg-6 col-md-12 col-sm-12">
-                        <!-- Sec Title -->
-                        <div class="sec-title light">
-                            <div class="title">Breakfast</div>
-                            <h2>How to Meal Prep Breakfast Sandwiches for the <br> Week Ahead</h2>
-                            <div class="text">Special occasions call for extraordinary food. Whether your gathering
-                                is big or small, casual or formal, here's everything you need to create a crowd-pleasing
-                                holiday feast</div>
-                        </div>
-                        <a href="{{route('recipe')}}" class="theme-btn btn-style-two"><span class="txt">Check
-                                Recipe</span></a>
-                    </div>
-
-                </div>
-            </div>
         </section>
 
         <section class="most-searched-recipes-section">
@@ -261,28 +214,23 @@
                 <div class="sec-title centered mt-10">
                     <h2>Most Favourite Recipes</h2>
                 </div>
-
+        
                 <div class="row clearfix">
                     @foreach ($recipes as $recipe)
                         <div class="entertaining-block col-lg-3 col-md-6 col-sm-12">
                             <div class="inner-box">
                                 <div class="image">
                                     <a href="{{ route('recipe.show', $recipe->id) }}">
-                                        <img src="{{ $recipe->image_url ? asset('storage/' . $recipe->image_url) : asset('assets/images/default.jpg') }}"
-                                            alt="{{ $recipe->title }}" />
+                                        <img src="{{ $recipe->image_url ? asset('storage/' . $recipe->image_url) : asset('assets/images/default.jpg') }}" alt="{{ $recipe->title }}" />
                                     </a>
                                 </div>
                                 <div class="lower-content">
                                     <ul class="post-meta">
-                                        <li><span class="icon"></span>{{ $recipe->created_at->format('d M, Y') }}
-                                        </li>
-                                        <li><span class="icon flaticon-search"></span>{{ $recipe->search_count }}
-                                            Searches</li>
+                                        <li><span class="icon"></span>{{ $recipe->created_at->format('d M, Y') }}</li>
+                                        <li><span class="icon flaticon-search"></span>{{ $recipe->search_count }} Searches</li>
                                     </ul>
-                                    <h4><a href="{{ route('recipe.show', $recipe->id) }}">{{ $recipe->title }}</a>
-                                    </h4>
-                                    <a href="{{ route('recipe.show', $recipe->id) }}"
-                                        class="theme-btn read-more">Read More</a>
+                                    <h4><a href="{{ route('recipe.show', $recipe->id) }}">{{ $recipe->title }}</a></h4>
+                                    <a href="{{ route('recipe.show', $recipe->id) }}" class="theme-btn read-more">Read More</a>
                                 </div>
                             </div>
                         </div>
@@ -290,16 +238,16 @@
                 </div>
             </div>
         </section>
+        
+        
+        
 
-        <!-- Subscribe Section -->
         <section class="subscribe-section" style="background-image: url(/assets/images/background/9.png)">
             <div class="auto-container">
                 <div class="row clearfix">
 
-                    <!-- Column -->
                     <div class="column col-lg-6 col-md-12 col-sm-12">
                         <h1>Subscribe to the best <br> recipes feed.</h1>
-                        <!-- Subscribe Form -->
                         <div class="subscribe-form">
                             <form method="post" action="https://gico.io/spcica/contact.html">
                                 <div class="form-group clearfix">
@@ -312,7 +260,6 @@
                         <div class="inbox">Get recipes, tips, and news delivered to your inbox.</div>
                     </div>
 
-                    <!-- Column -->
                     <div class="column col-lg-6 col-md-12 col-sm-12">
                         <h1>Visit our store</h1>
                         <div class="bold-text">Here you’ll find a carefully chosen kitchen inventory.</div>
@@ -326,17 +273,17 @@
             </div>
         </section>
 
-        <footer class="main-footer" style="background-image:url(images/background/5.png)">
+
+
+        <footer class="main-footer" style="background-image:url(/assets/images/background/5.png)">
             <div class="auto-container">
-                <div class="logo">
-                    <a href="index.html"><img src="images/footer-logo.png" alt="" /></a>
-                </div>
+
                 <ul class="footer-nav">
-                    <li><a href="{{ route('dashboard') }}">Home</a></li>
-                    <li><a href="{{ route('recipe') }}">Recipes</a></li>
-                    <li><a href="{{ route('about') }}">About us</a></li>
-                    <li><a href="{{ route('blog') }}">Blog</a></li>
-                    <li><a href="{{ route('contact') }}">Contacts</a></li>
+                    <li><a href="{{route('dashboard')}}">Home</a></li>
+                    <li><a href="{{route('recipe')}}">Recipes</a></li>
+                    <li><a href="{{route('about')}}">About us</a></li>
+                    <li><a href="{{route('blog')}}">Blog</a></li>
+                    <li><a href="{{route('contact')}}">Contacts</a></li>
                 </ul>
                 <ul class="social-box">
                     <li><a href="#"><span class="fa fa-pinterest-p"></span></a></li>
@@ -361,7 +308,6 @@
     <script src="/assets/js/owl.js"></script>
     <script src="/assets/js/wow.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
-    <script src="/assets/js/script.js"></script>
     <script src="/assets/js/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -406,5 +352,6 @@
     </script>
 
 </body>
+
 
 </html>

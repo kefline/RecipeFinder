@@ -65,10 +65,12 @@
                                     <input type="password" name="password_confirmation" id="confirm_password"
                                         placeholder="confirm password" required>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group d-flex justify-content-between align-items-center">
                                     <button class="theme-btn btn-style-one" type="submit" name="submit-form"><span
                                             class="txt">Register</span></button>
-                                    Already have an account? <a href="{{ route('auth.login') }}">Login</a>
+                                   <p style="font-size: 16px"> Already have an account? 
+                                    <a href="{{ route('auth.login') }}">Login</a>
+                                   </p>
                                 </div>
 
                             </form>
@@ -99,7 +101,6 @@
                     <li><a href="#"><span class="fa fa-twitter"></span></a></li>
                     <li><a href="#"><span class="fa fa-youtube-play"></span></a></li>
                 </ul>
-                <div class="copyright">&copy; All Right Reserved 2020</div>
             </div>
         </footer>
 
@@ -118,6 +119,7 @@
     <script src="/assets/js/validate.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
     <script src="/assets/js/script.js"></script>
+    
 
 </body>
 

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 
-<!-- Mirrored from gico.io/spcica/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2024 19:57:57 GMT -->
 
 <head>
     <meta charset="utf-8">
     <title>RecipeFinder|Dashboard</title>
-    <!-- Stylesheets -->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/main.css" rel="stylesheet">
     <link href="/assets/css/responsive.css" rel="stylesheet">
+    <link href="/assets/css/custom.css" rel="stylesheet">
+
 
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
     <link rel="icon" href="images/favicon.png" type="image/x-icon">
@@ -68,27 +68,14 @@
 
                                         </li>
                                         <li><a href="{{ route('about') }}">About Us</a></li>
-                                        <li class="dropdown"><a href="#">Recipes</a>
-                                            <ul>
-                                                <li><a href="recipes.html">Recipes 01</a></li>
-                                                <li><a href="recipes-2.html">Recipes 02</a></li>
-                                                <li><a href="recipes-3.html">Recipes 03</a></li>
-                                                <li><a href="recipes-video.html">Recipes Video</a></li>
-                                                <li><a href="recipes-detail.html">Recipes Detail 01</a></li>
-                                                <li><a href="recipes-detail-2.html">Recipes Detail 02</a></li>
-                                            </ul>
+                                        <li ><a href="{{route('recipe')}}">Recipes</a>
+                                           
                                         </li>
-                                        <li><a href="category.html">Category</a></li>
-                                        <li class="dropdown"><a href="#">Blog</a>
-                                            <ul>
-                                                <li><a href="blog.html">Blog</a></li>
-                                                <li><a href="blog-single.html">Blog Single</a></li>
-                                                <li><a href="not-found.html">Not Found / 404</a></li>
-                                                <li><a href="login.html">Login</a></li>
-                                                <li><a href="signup.html">Sign Up</a></li>
-                                            </ul>
+                                        <li><a href="{{route('category')}}">Category</a></li>
+                                        <li ><a href="{{route('blog')}}">Blog</a>
+                                            
                                         </li>
-                                        <li><a href="contact.html">Contact us</a></li>
+                                        <li><a href="{{route('contact')}}">Contact us</a></li>
                                     </ul>
                                 </div>
 
@@ -104,12 +91,11 @@
                                             aria-labelledby="dropdownMenu3">
                                             <li class="panel-outer">
                                                 <div class="form-container">
-                                                    <form method="post" action="https://gico.io/spcica/blog.html">
+                                                    <form method="post" action="{{route('recipe.search')}}">
+                                                        @csrf
                                                         <div class="form-group">
-                                                            <input type="search" name="field-name" value=""
-                                                                placeholder="Search Here" required>
-                                                            <button type="submit" class="search-btn"><span
-                                                                    class="fa fa-search"></span></button>
+                                                            <input type="search" name="field-name" value="" placeholder="Search Here" required>
+                                                            <button type="submit" class="search-btn"><span class="fa fa-search"></span></button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -124,7 +110,7 @@
                                         </a>
                                     </li>
                                     <li class="recipe">
-                                        <a href="add-recipe.html">
+                                        <a href="{{route('add')}}">
                                             <span class="fa fa-plus-circle"></span> Add Recipe
                                         </a>
                                     </li>
@@ -148,9 +134,7 @@
                     </div>
                 </div>
             </div>
-            <!--End Header Upper-->
-
-            <!-- Mobile Menu  -->
+          
             <div class="mobile-menu">
                 <div class="menu-backdrop"></div>
                 <div class="close-btn"><span class="icon fa fa-remove"></span></div>
@@ -159,169 +143,77 @@
                     <div class="nav-logo"><a href="index.html"><img src="images/logo-2.png" alt=""
                                 title=""></a></div>
                     <div class="menu-outer">
-                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
                     </div>
                 </nav>
-            </div><!-- End Mobile Menu -->
-
+            </div>
         </header>
-        <!--End Main Header -->
-
-        <!-- Banner Section -->
+        
         <section class="banner-section">
             <div class="banner-carousel owl-theme owl-carousel">
-
-                <!-- Slide Item -->
+                @foreach ($recipes as $recipe)
                 <div class="slide-item">
                     <div class="image-layer" style="background-image:url(/assets/images/main-slider/1.jpg)"></div>
 
                     <div class="auto-container">
                         <div class="content-box">
                             <div class="author-image">
-                                <img src="/assets/images/resource/author-2.jpg" alt="" />
+                                <img src="{{ $recipe->image_url ? asset('storage/' . $recipe->image_url) : asset('assets/images/default.jpg') }}" 
+                                alt="Recipe Image" 
+                                class="img-fluid recipe-image" 
+                                style="max-width: 100%; height: auto; max-width: 150px; max-width: 250px;" />
+                           
                             </div>
                             <div class="info-list clearfix">
-                                <div class="sales">Salad</div>
+                                <div class="sales">{{$recipe->title}}</div>
                                 <div class="rating">
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star-half-o"></span>&ensp;
-                                    8 Review
+                                    8 Reviews
                                 </div>
                                 <!-- Author Name -->
-                                <div class="author-name">
-                                    <div class="author-inner">
-                                        <div class="author-icon">
-                                            <img src="/assets/images/resource/author-1.jpg" alt="" />
-                                        </div>
-                                        by Mahfuz Riad
-                                    </div>
-                                </div>
+                                
                             </div>
-                            <h1>Roasted Pumpkin and <br> Beet Salad</h1>
-                            <div class="text">Lorem ipsum dolor sit amet, consectetuer <br> adipiscing elit, sed
-                                tinciduntut laore dolore </div>
+                            <h1>{{$recipe->title}}</h1>
+                            <div class="text">{{Str::limit($recipe->description)}}</div>
                             <ul class="post-meta">
                                 <li><span class="icon flaticon-dish"></span>4 ingredients</li>
-                                <li><span class="icon flaticon-clock-3"></span>6 Min</li>
-                                <li><span class="icon flaticon-business-and-finance"></span>4 People</li>
+                                <li><span class="icon flaticon-clock-3"></span>{{$recipe->cook_time}} Min</li>
+                                <li><span class="icon flaticon-business-and-finance"></span>{{$recipe->peoples}}People</li>
                             </ul>
                         </div>
                     </div>
-                </div>
-
-                <!-- Slide Item -->
-                <div class="slide-item">
-                    <div class="image-layer" style="background-image:url(/assets/images/main-slider/1.jpg)"></div>
-
-                    <div class="auto-container">
-                        <div class="content-box">
-                            <div class="author-image">
-                                <img src="/assets/images/resource/author-2.jpg" alt="" />
-                            </div>
-                            <div class="info-list clearfix">
-                                <div class="sales">Salad</div>
-                                <div class="rating">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star-half-o"></span>&ensp;
-                                    8 Review
-                                </div>
-                                <!-- Author Name -->
-                                <div class="author-name">
-                                    <div class="author-inner">
-                                        <div class="author-icon">
-                                            <img src="/assets/images/resource/author-1.jpg" alt="" />
-                                        </div>
-                                        by Mahfuz Riad
-                                    </div>
-                                </div>
-                            </div>
-                            <h1>Roasted Pumpkin and <br> Beet Salad</h1>
-                            <div class="text">Lorem ipsum dolor sit amet, consectetuer <br> adipiscing elit, sed
-                                tinciduntut laore dolore </div>
-                            <ul class="post-meta">
-                                <li><span class="icon flaticon-dish"></span>4 ingredients</li>
-                                <li><span class="icon flaticon-clock-3"></span>6 Min</li>
-                                <li><span class="icon flaticon-business-and-finance"></span>4 People</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide Item -->
-                <div class="slide-item">
-                    <div class="image-layer" style="background-image:url(/assets/images/main-slider/1.jpg)"></div>
-
-                    <div class="auto-container">
-                        <div class="content-box">
-                            <div class="author-image">
-                                <img src="/assets/images/resource/author-2.jpg" alt="" />
-                            </div>
-                            <div class="info-list clearfix">
-                                <div class="sales">Salad</div>
-                                <div class="rating">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star-half-o"></span>&ensp;
-                                    8 Review
-                                </div>
-                                <!-- Author Name -->
-                                <div class="author-name">
-                                    <div class="author-inner">
-                                        <div class="author-icon">
-                                            <img src="/assets/images/resource/author-1.jpg" alt="" />
-                                        </div>
-                                        by Mahfuz Riad
-                                    </div>
-                                </div>
-                            </div>
-                            <h1>Roasted Pumpkin and <br> Beet Salad</h1>
-                            <div class="text">Lorem ipsum dolor sit amet, consectetuer <br> adipiscing elit, sed
-                                tinciduntut laore dolore </div>
-                            <ul class="post-meta">
-                                <li><span class="icon flaticon-dish"></span>4 ingredients</li>
-                                <li><span class="icon flaticon-clock-3"></span>6 Min</li>
-                                <li><span class="icon flaticon-business-and-finance"></span>4 People</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
+                    
+                </div> 
+                @endforeach
             </div>
         </section>
-        <!--End Banner Section -->
+   
 
-        <!-- Product Form Section -->
         <section class="product-form-section">
             <div class="auto-container">
                 <div class="inner-container margin-top">
 
-                    <!-- Default Form -->
                     <div class="default-form">
-                        <form method="post" action="https://gico.io/spcica/contact.html">
+                        <form method="post" action="{{ route('recipe.search') }}">
+                            @csrf
                             <div class="clearfix">
 
-                                <!-- Form Group -->
                                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                                    <select class="custom-select-box">
-                                        <option>Categories</option>
-                                        <option>01</option>
-                                        <option>02</option>
-                                        <option>03</option>
-                                        <option>04</option>
+                                    <select class="custom-select-box" name="category">
+                                        <option value="">Select category</option>
+                                        @foreach ($recipes as $recipe)
+                                            <option value="{{ $recipe->category }}">{{ $recipe->category }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
-                                <!-- Form Group -->
                                 <div class="form-group col-lg-7 col-md-6 col-sm-12">
-                                    <input type="text" name="text" placeholder="Recipe Kayword" required>
+                                    <input type="text" id="recipe-search" name="title"
+                                        placeholder="Type a recipe..." autocomplete="off">
+                                    <div id="search-results" class="search-results-container"></div>
                                 </div>
 
                                 <div class="form-group col-lg-2 col-md-12 col-sm-12">
@@ -336,506 +228,62 @@
                 </div>
             </div>
         </section>
-        <!-- End Keyword Section -->
-
-        <!-- Categories Section-->
+   
         <section class="categories-section">
             <div class="auto-container">
 
-                <!-- Sec Title -->
                 <div class="sec-title centered">
-                    <h2> Recipe Categories</h2>
-                    <div class="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed tincidunt ut
-                        laoreet <br> dolore magna aliquam erat volutpat lorem</div>
+                    <h2>Explore Tanzanian Recipe Categories</h2>
+                    <div class="text">From the spicy coastal dishes to hearty inland meals, Tanzanian cuisine offers a rich variety of flavors that cater to every taste. Explore these categories to discover traditional recipes, street food, and festive meals enjoyed across the country.</div>
                 </div>
+                
 
-                <!-- Categories Tabs -->
                 <div class="categories-tab">
 
                     <div class="tab-btns-box">
                         <!--Tabs Header-->
                         <div class="tabs-header">
                             <ul class="product-tab-btns clearfix">
-                                <li class="p-tab-btn active-btn" data-tab="#p-tab-1">Meal Type <span
-                                        class="number">14</span></li>
-                                <li class="p-tab-btn" data-tab="#p-tab-2">Diet and Health <span
-                                        class="number">12</span></li>
-                                <li class="p-tab-btn" data-tab="#p-tab-3">Dish Type <span class="number">03</span>
-                                </li>
-                                <li class="p-tab-btn" data-tab="#p-tab-4">Ingredient <span class="number">08</span>
-                                </li>
-                                <li class="p-tab-btn" data-tab="#p-tab-5">World Cuisine <span
-                                        class="number">04</span></li>
+                                @foreach ($recipes as $recipe)
+                                <li class="p-tab-btn active-btn" data-tab="#p-tab-1">{{$recipe->category}} </li> 
+                                @endforeach
+                                
+                                
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Tabs Content -->
                     <div class="p-tabs-content">
 
-                        <!-- Portfolio Tab / Active Tab -->
                         <div class="p-tab active-tab" id="p-tab-1">
                             <div class="project-carousel owl-theme owl-carousel">
 
-                                <!-- Category Block -->
-                                <div class="category-block">
+								@foreach ($recipes as $recipe)
+								<div class="category-block">
                                     <div class="inner-box">
                                         <div class="image">
-                                            <img src="/assets/images/resource/cat-1.png" alt="" />
+											<img src="{{ $recipe->image_url ? asset('storage/' . $recipe->image_url) : asset('assets/images/default.jpg') }}"
+											alt="Recipe Image" class="recipe-image" />
                                         </div>
                                         <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Cake recipe</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna</div>
+                                            <h4><a href="#">{{$recipe->title}}</a></h4>
+                                            <div class="text">{{ Str::limit($recipe->description, 150) }}</div>
                                         </div>
                                     </div>
                                 </div>
+								@endforeach
 
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-2.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Christmas Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec adipiscing <br> elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-3.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Ground Chicken Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-1.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Cake recipe</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-2.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Christmas Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec adipiscing <br> elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-3.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Ground Chicken Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                              
                             </div>
                         </div>
 
-                        <!-- Portfolio Tab -->
-                        <div class="p-tab" id="p-tab-2">
-                            <div class="project-carousel owl-theme owl-carousel">
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-1.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Cake recipe</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-2.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Christmas Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec adipiscing <br> elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-3.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Ground Chicken Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-1.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Cake recipe</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-2.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Christmas Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec adipiscing <br> elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-3.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Ground Chicken Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Portfolio Tab -->
-                        <div class="p-tab" id="p-tab-3">
-                            <div class="project-carousel owl-theme owl-carousel">
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-1.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Cake recipe</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-2.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Christmas Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec adipiscing <br> elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-3.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Ground Chicken Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-1.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Cake recipe</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-2.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Christmas Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec adipiscing <br> elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-3.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Ground Chicken Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Portfolio Tab -->
-                        <div class="p-tab" id="p-tab-4">
-                            <div class="project-carousel owl-theme owl-carousel">
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-1.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Cake recipe</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-2.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Christmas Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec adipiscing <br> elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-3.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Ground Chicken Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-1.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Cake recipe</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-2.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Christmas Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec adipiscing <br> elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-3.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Ground Chicken Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Portfolio Tab -->
-                        <div class="p-tab" id="p-tab-5">
-                            <div class="project-carousel owl-theme owl-carousel">
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-1.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Cake recipe</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-2.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Christmas Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec adipiscing <br> elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-3.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Ground Chicken Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-1.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Cake recipe</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-2.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Christmas Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec adipiscing <br> elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Category Block -->
-                                <div class="category-block">
-                                    <div class="inner-box">
-                                        <div class="image">
-                                            <img src="/assets/images/resource/cat-3.png" alt="" />
-                                        </div>
-                                        <div class="lower-content">
-                                            <h4><a href="recipes-detail.html">Ground Chicken Recipes</a></h4>
-                                            <div class="text">Lorem ipsum dolor amet, consetec <br> adipiscing elit.
-                                                magna lentesque.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
 
                     </div>
 
                 </div>
             </div>
         </section>
-        <!-- End Categories Section-->
-
-        <!-- Trending Section -->
+     
         <section class="trending-section">
             <div class="auto-container">
                 <div class="layer-one" style="background-image: url(/assets/images/resource/category-pattern-1.png)">
@@ -875,9 +323,7 @@
                 </div>
             </div>
         </section>
-        <!-- End Trending Section -->
-
-        <!-- Popular Recipes Section -->
+      
         <section class="popular-recipes-section">
             <div class="auto-container">
                 <!-- Sec Title -->
@@ -889,7 +335,7 @@
                                 ut</div>
                         </div>
                         <div class="pull-right">
-                            <a href="recipes.html" class="theme-btn btn-style-one"><span class="txt">See all
+                            <a href="{{route('recipe')}}" class="theme-btn btn-style-one"><span class="txt">See all
                                     Post</span></a>
                         </div>
                     </div>
@@ -897,107 +343,39 @@
             </div>
             <div class="outer-container">
                 <div class="row clearfix">
-
+                    @foreach ($recipes as $recipe)
                     <!-- Recipes Block -->
                     <div class="recipes-block col-lg-3 col-md-6 col-sm-12">
+                       
                         <div class="inner-box">
+                            
                             <div class="image">
-                                <a href="recipes-detail.html"><img src="/assets/images/resource/recipe-1.jpg"
-                                        alt="" /></a>
+                                <a href=""> <img src="{{ $recipe->image_url ? asset('storage/' . $recipe->image_url) : asset('assets/images/default.jpg') }}"
+                                    alt="Recipe Image" class="recipe-image" />
                             </div>
                             <div class="lower-content">
-                                <div class="author-image"><a href="author-details.html"><img
-                                            src="/assets/images/resource/author-3.jpg" alt="" /></a></div>
-                                <div class="category">CHICKEN</div>
-                                <h4><a href="recipes-detail.html">Pressure-Cooker Beef Short Ribs with Chutney</a></h4>
-                                <div class="text">Discover a sleighload of tasty snacks that are just right for
-                                    holiday feasting.</div>
+                                
+                                <div class="category">{{$recipe->category}}</div>
+                                <h4><a href="recipes-detail.html">{{$recipe->title}}</a></h4>
+                                <div class="text">{{Str::limit($recipe->description,150)}}</div>
                                 <ul class="post-meta">
                                     <li><span class="icon flaticon-dish"></span>4 ingredients</li>
-                                    <li><span class="icon flaticon-clock-3"></span>6 Min</li>
-                                    <li><span class="icon flaticon-business-and-finance"></span>4 People</li>
+                                    <li><span class="icon flaticon-clock-3"></span>{{$recipe->cook_time}}Min</li>
+                                    <li><span class="icon flaticon-business-and-finance"></span>{{$recipe->peoples}} People</li>
                                 </ul>
                             </div>
-                        </div>
+                        </div>  
+                           
+                       
                     </div>
 
-                    <!-- Recipes Block -->
-                    <div class="recipes-block col-lg-3 col-md-6 col-sm-12">
-                        <div class="inner-box">
-                            <div class="image">
-                                <a href="recipes-detail.html"><img src="/assets/images/resource/recipe-2.jpg"
-                                        alt="" /></a>
-                            </div>
-                            <div class="lower-content">
-                                <div class="author-image"><a href="author-details.html"><img
-                                            src="/assets/images/resource/author-3.jpg" alt="" /></a></div>
-                                <div class="category">FEATURED COLLECTION</div>
-                                <h4><a href="recipes-detail.html">Cold-Weather Weeknight <br> Dinners</a></h4>
-                                <div class="text">Discover a sleighload of tasty snacks that are just right for
-                                    holiday feasting.</div>
-                                <ul class="post-meta">
-                                    <li><span class="icon flaticon-dish"></span>4 ingredients</li>
-                                    <li><span class="icon flaticon-clock-3"></span>6 Min</li>
-                                    <li><span class="icon flaticon-business-and-finance"></span>4 People</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Recipes Block -->
-                    <div class="recipes-block col-lg-3 col-md-6 col-sm-12">
-                        <div class="inner-box">
-                            <div class="image">
-                                <a href="recipes-detail.html"><img src="/assets/images/resource/recipe-3.jpg"
-                                        alt="" /></a>
-                            </div>
-                            <div class="lower-content">
-                                <div class="author-image"><a href="author-details.html"><img
-                                            src="/assets/images/resource/author-3.jpg" alt="" /></a></div>
-                                <div class="category">Dinner</div>
-                                <h4><a href="recipes-detail.html">Hamburger Steak with Onions and Gravy</a></h4>
-                                <div class="text">Discover a sleighload of tasty snacks that are just right for
-                                    holiday feasting.</div>
-                                <ul class="post-meta">
-                                    <li><span class="icon flaticon-dish"></span>4 ingredients</li>
-                                    <li><span class="icon flaticon-clock-3"></span>6 Min</li>
-                                    <li><span class="icon flaticon-business-and-finance"></span>4 People</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Recipes Block -->
-                    <div class="recipes-block col-lg-3 col-md-6 col-sm-12">
-                        <div class="inner-box">
-                            <div class="image">
-                                <a href="recipes-detail.html"><img src="/assets/images/resource/recipe-4.jpg"
-                                        alt="" /></a>
-                            </div>
-                            <div class="lower-content">
-                                <div class="author-image"><a href="author-details.html"><img
-                                            src="/assets/images/resource/author-3.jpg" alt="" /></a></div>
-                                <div class="category">Recipe</div>
-                                <h4><a href="recipes-detail.html">Pressure-Cooker Beef Short <br> Ribs with Chutney</a>
-                                </h4>
-                                <div class="text">Discover a sleighload of tasty snacks that are just right for
-                                    holiday feasting.</div>
-                                <ul class="post-meta">
-                                    <li><span class="icon flaticon-dish"></span>4 ingredients</li>
-                                    <li><span class="icon flaticon-clock-3"></span>6 Min</li>
-                                    <li><span class="icon flaticon-business-and-finance"></span>4 People</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
+                   
+                    @endforeach
                 </div>
             </div>
         </section>
-        <!-- End Popular Recipes Section -->
-
-        <!-- Trending Recipes Section -->
-        <section class="trending-recipes-section">
+      
+        {{-- <section class="trending-recipes-section">
             <div class="auto-container">
                 <!-- Sec Title -->
                 <div class="sec-title">
@@ -1091,10 +469,8 @@
                 </div>
 
             </div>
-        </section>
-        <!-- End Trending Recipes Section -->
-
-        <!-- Call To Action Section -->
+        </section> --}}
+       
         <section class="call-to-action-section" style="background-image:url(/assets/images/background/2.jpg)">
             <div class="auto-container">
                 <div class="row clearfix">
@@ -1109,7 +485,7 @@
                                 is big or small, casual or formal, here's everything you need to create a crowd-pleasing
                                 holiday feast</div>
                         </div>
-                        <a href="recipes-2.html" class="theme-btn btn-style-two"><span class="txt">Check
+                        <a href="#" class="theme-btn btn-style-two"><span class="txt">Check
                                 Recipe</span></a>
                     </div>
 
@@ -1123,54 +499,62 @@
                                 is big or small, casual or formal, here's everything you need to create a crowd-pleasing
                                 holiday feast</div>
                         </div>
-                        <a href="recipes-2.html" class="theme-btn btn-style-two"><span class="txt">Check
+                        <a href="#" class="theme-btn btn-style-two"><span class="txt">Check
                                 Recipe</span></a>
                     </div>
 
                 </div>
             </div>
         </section>
-        <!-- End Call To Action Section -->
-
-        <!-- Video Section -->
-        <section class="video-section">
+     
+        {{-- <section class="video-section">
             <div class="auto-container">
                 <div class="row clearfix">
-
-                    <!-- Column -->
+        
+                    @foreach ($recipes as $recipe)
                     <div class="column col-lg-6 col-md-6 col-sm-12">
-                        <!--Video Box-->
                         <div class="video-box">
                             <div class="image">
-                                <h4>Pressure-Cooker Chicken <br> Enchilada Soup</h4>
-                                <img src="/assets/images/resource/video-1.jpg" alt="" />
-                                <a href="https://www.youtube.com/watch?v=kxPCFljwJws"
-                                    class="lightbox-image overlay-box"><span class="flaticon-media-play-symbol"><i
-                                            class="ripple"></i></span></a>
+                                <h4>{{ $recipe->title }}</h4>
+                                <img src="{{ $recipe->image_url ? asset('storage/' . $recipe->image_url) : asset('assets/images/default.jpg') }}" 
+                                     alt="{{ $recipe->title }}" />
+                                
+                                @php
+                                    $videoId = '';
+                                    if (str_contains($recipe->video_url, 'youtube.com') || str_contains($recipe->video_url, 'youtu.be')) {
+                                        $videoId = Str::after($recipe->video_url, 'v=');
+                                    } elseif (str_contains($recipe->video_url, 'youtu.be')) {
+                                        $videoId = Str::afterLast($recipe->video_url, '/');
+                                    }
+                                @endphp
+                                
+                                @if ($videoId)
+                                    <div class="video-container">
+                                        <iframe 
+                                            src="https://www.youtube.com/embed/{{ $videoId }}" 
+                                            frameborder="0" 
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                            allowfullscreen>
+                                        </iframe>
+                                    </div>
+                                @else
+                                    <a href="{{ asset('storage/' . $recipe->video_url) }}" class="lightbox-image overlay-box">
+                                        <span class="flaticon-media-play-symbol">
+                                            <i class="ripple"></i>
+                                        </span>
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>
-
-                    <!-- Column -->
-                    <div class="column col-lg-6 col-md-6 col-sm-12">
-                        <!--Video Box-->
-                        <div class="video-box">
-                            <div class="image">
-                                <h4>Garlic Tomato Bruschetta</h4>
-                                <img src="/assets/images/resource/video-2.jpg" alt="" />
-                                <a href="https://www.youtube.com/watch?v=kxPCFljwJws"
-                                    class="lightbox-image overlay-box"><span class="flaticon-media-play-symbol"><i
-                                            class="ripple"></i></span></a>
-                            </div>
-                        </div>
-                    </div>
-
+                @endforeach
+                
+        
                 </div>
             </div>
-        </section>
-        <!-- End Video Section -->
-
-        <!-- Entertaining Section -->
+        </section> --}}
+        
+{{--     
         <section class="entertaining-section">
             <div class="auto-container">
                 <!-- Sec Title -->
@@ -1263,11 +647,9 @@
                 </div>
 
             </div>
-        </section>
-        <!-- End Entertaining Section -->
-
-        <!-- Treats Section -->
-        <section class="treats-section">
+        </section> --}}
+ 
+        {{-- <section class="treats-section">
             <div class="layer-one" style="background-image: url(/assets/images/background/3.png)"></div>
             <div class="layer-two" style="background-image: url(/assets/images/background/4.png)"></div>
             <div class="auto-container">
@@ -1343,50 +725,9 @@
                 </div>
             </div>
         </section>
-        <!-- End Treats Section -->
+         --}}
 
-        <!-- Clients Section -->
-        <section class="clients-section">
-            <div class="auto-container">
-                <div class="sponsors-outer">
-                    <!--Sponsors Carousel-->
-                    <ul class="sponsors-carousel owl-carousel owl-theme">
-                        <li class="slide-item">
-                            <figure class="image-box"><a href="#"><img src="/assets/images/clients/1.png"
-                                        alt=""></a></figure>
-                        </li>
-                        <li class="slide-item">
-                            <figure class="image-box"><a href="#"><img src="/assets/images/clients/2.png"
-                                        alt=""></a></figure>
-                        </li>
-                        <li class="slide-item">
-                            <figure class="image-box"><a href="#"><img src="/assets/images/clients/3.png"
-                                        alt=""></a></figure>
-                        </li>
-                        <li class="slide-item">
-                            <figure class="image-box"><a href="#"><img src="/assets/images/clients/4.png"
-                                        alt=""></a></figure>
-                        </li>
-                        <li class="slide-item">
-                            <figure class="image-box"><a href="#"><img src="/assets/images/clients/5.png"
-                                        alt=""></a></figure>
-                        </li>
-                        <li class="slide-item">
-                            <figure class="image-box"><a href="#"><img src="/assets/images/clients/1.png"
-                                        alt=""></a></figure>
-                        </li>
-                        <li class="slide-item">
-                            <figure class="image-box"><a href="#"><img src="/assets/images/clients/2.png"
-                                        alt=""></a></figure>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-        </section>
-        <!-- End Clients Section -->
-
-        <!-- Subscribe Section -->
+       
         <section class="subscribe-section">
             <div class="auto-container">
                 <div class="row clearfix">
@@ -1396,7 +737,8 @@
                         <h1>Subscribe to the best <br> recipes feed.</h1>
                         <!-- Subscribe Form -->
                         <div class="subscribe-form">
-                            <form method="post" action="https://gico.io/spcica/contact.html">
+                            <form method="post" action="{{route('contact.store')}}">
+                                @csrf
                                 <div class="form-group clearfix">
                                     <input type="email" name="email" value=""
                                         placeholder="Enter your email" required>
@@ -1420,258 +762,19 @@
                 </div>
             </div>
         </section>
-        <!-- End Subscribe Section -->
+       
 
-        <!-- Instagram Section -->
-        <section class="instagram-section">
-            <div class="auto-container">
-                <!-- Title Box -->
-                <div class="title-box">
-                    <div class="profile"><span class="fa fa-pinterest"></span> Follow On Pinterest </div>
-                </div>
 
-            </div>
-
-            <div class="instagram-carousel owl-carousel owl-theme">
-
-                <!-- Instagram Block -->
-                <div class="instagram-block">
-                    <div class="inner-box">
-                        <figure class="image-box"><img src="/assets/images/resource/instagram-1.jpg" alt="">
-                        </figure>
-                        <!--Overlay Box-->
-                        <div class="overlay-box">
-                            <div class="overlay-inner">
-                                <div class="content">
-                                    <a href="/assets/images/resource/instagram-1.jpg" data-fancybox="instagram"
-                                        data-caption="" class="lightbox-image option-btn" title="Image Caption Here"
-                                        data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Instagram Block -->
-                <div class="instagram-block">
-                    <div class="inner-box">
-                        <figure class="image-box"><img src="/assets/images/resource/instagram-2.jpg" alt="">
-                        </figure>
-                        <!--Overlay Box-->
-                        <div class="overlay-box">
-                            <div class="overlay-inner">
-                                <div class="content">
-                                    <a href="/assets/images/resource/instagram-2.jpg" data-fancybox="instagram"
-                                        data-caption="" class="lightbox-image option-btn" title="Image Caption Here"
-                                        data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Instagram Block -->
-                <div class="instagram-block">
-                    <div class="inner-box">
-                        <figure class="image-box"><img src="/assets/images/resource/instagram-3.jpg" alt="">
-                        </figure>
-                        <!--Overlay Box-->
-                        <div class="overlay-box">
-                            <div class="overlay-inner">
-                                <div class="content">
-                                    <a href="/assets/images/resource/instagram-3.jpg" data-fancybox="instagram"
-                                        data-caption="" class="lightbox-image option-btn" title="Image Caption Here"
-                                        data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Instagram Block -->
-                <div class="instagram-block">
-                    <div class="inner-box">
-                        <figure class="image-box"><img src="/assets/images/resource/instagram-4.jpg" alt="">
-                        </figure>
-                        <!--Overlay Box-->
-                        <div class="overlay-box">
-                            <div class="overlay-inner">
-                                <div class="content">
-                                    <a href="/assets/images/resource/instagram-4.jpg" data-fancybox="instagram"
-                                        data-caption="" class="lightbox-image option-btn" title="Image Caption Here"
-                                        data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Instagram Block -->
-                <div class="instagram-block">
-                    <div class="inner-box">
-                        <figure class="image-box"><img src="/assets/images/resource/instagram-5.jpg" alt="">
-                        </figure>
-                        <!--Overlay Box-->
-                        <div class="overlay-box">
-                            <div class="overlay-inner">
-                                <div class="content">
-                                    <a href="/assets/images/resource/instagram-5.jpg" data-fancybox="instagram"
-                                        data-caption="" class="lightbox-image option-btn" title="Image Caption Here"
-                                        data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Instagram Block -->
-                <div class="instagram-block">
-                    <div class="inner-box">
-                        <figure class="image-box"><img src="/assets/images/resource/instagram-6.jpg" alt="">
-                        </figure>
-                        <!--Overlay Box-->
-                        <div class="overlay-box">
-                            <div class="overlay-inner">
-                                <div class="content">
-                                    <a href="/assets/images/resource/instagram-6.jpg" data-fancybox="instagram"
-                                        data-caption="" class="lightbox-image option-btn" title="Image Caption Here"
-                                        data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Instagram Block -->
-                <div class="instagram-block">
-                    <div class="inner-box">
-                        <figure class="image-box"><img src="/assets/images/resource/instagram-1.jpg" alt="">
-                        </figure>
-                        <!--Overlay Box-->
-                        <div class="overlay-box">
-                            <div class="overlay-inner">
-                                <div class="content">
-                                    <a href="/assets/images/resource/instagram-1.jpg" data-fancybox="instagram"
-                                        data-caption="" class="lightbox-image option-btn" title="Image Caption Here"
-                                        data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Instagram Block -->
-                <div class="instagram-block">
-                    <div class="inner-box">
-                        <figure class="image-box"><img src="/assets/images/resource/instagram-2.jpg" alt="">
-                        </figure>
-                        <!--Overlay Box-->
-                        <div class="overlay-box">
-                            <div class="overlay-inner">
-                                <div class="content">
-                                    <a href="/assets/images/resource/instagram-2.jpg" data-fancybox="instagram"
-                                        data-caption="" class="lightbox-image option-btn" title="Image Caption Here"
-                                        data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Instagram Block -->
-                <div class="instagram-block">
-                    <div class="inner-box">
-                        <figure class="image-box"><img src="/assets/images/resource/instagram-3.jpg" alt="">
-                        </figure>
-                        <!--Overlay Box-->
-                        <div class="overlay-box">
-                            <div class="overlay-inner">
-                                <div class="content">
-                                    <a href="/assets/images/resource/instagram-3.jpg" data-fancybox="instagram"
-                                        data-caption="" class="lightbox-image option-btn"
-                                        title="Image Caption Here" data-fancybox-group="example-gallery"><span
-                                            class="fa fa-search"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Instagram Block -->
-                <div class="instagram-block">
-                    <div class="inner-box">
-                        <figure class="image-box"><img src="/assets/images/resource/instagram-4.jpg"
-                                alt=""></figure>
-                        <!--Overlay Box-->
-                        <div class="overlay-box">
-                            <div class="overlay-inner">
-                                <div class="content">
-                                    <a href="/assets/images/resource/instagram-4.jpg" data-fancybox="instagram"
-                                        data-caption="" class="lightbox-image option-btn"
-                                        title="Image Caption Here" data-fancybox-group="example-gallery"><span
-                                            class="fa fa-search"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Instagram Block -->
-                <div class="instagram-block">
-                    <div class="inner-box">
-                        <figure class="image-box"><img src="/assets/images/resource/instagram-5.jpg"
-                                alt=""></figure>
-                        <!--Overlay Box-->
-                        <div class="overlay-box">
-                            <div class="overlay-inner">
-                                <div class="content">
-                                    <a href="/assets/images/resource/instagram-5.jpg" data-fancybox="instagram"
-                                        data-caption="" class="lightbox-image option-btn"
-                                        title="Image Caption Here" data-fancybox-group="example-gallery"><span
-                                            class="fa fa-search"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Instagram Block -->
-                <div class="instagram-block">
-                    <div class="inner-box">
-                        <figure class="image-box"><img src="/assets/images/resource/instagram-6.jpg"
-                                alt=""></figure>
-                        <!--Overlay Box-->
-                        <div class="overlay-box">
-                            <div class="overlay-inner">
-                                <div class="content">
-                                    <a href="/assets/images/resource/instagram-6.jpg" data-fancybox="instagram"
-                                        data-caption="" class="lightbox-image option-btn"
-                                        title="Image Caption Here" data-fancybox-group="example-gallery"><span
-                                            class="fa fa-search"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-        <!-- End Instagram Section -->
-
-        <!-- Main Footer -->
+      
         <footer class="main-footer" style="background-image:url(/assets/images/background/5.png)">
             <div class="auto-container">
-                <div class="logo">
-                    <a href="index.html"><img src="/assets/images/footer-logo.png" alt="" /></a>
-                </div>
+              
                 <ul class="footer-nav">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Recipes</a></li>
-                    <li><a href="#">About us</a></li>
-                    <li><a href="#">Events</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contacts</a></li>
+                    <li><a href="{{route('dashboard')}}">Home</a></li>
+                    <li><a href="{{route('recipe')}}">Recipes</a></li>
+                    <li><a href="{{route('about')}}">About us</a></li>
+                    <li><a href="{{route('blog')}}">Blog</a></li>
+                    <li><a href="{{route('contact')}}">Contacts</a></li>
                 </ul>
                 <ul class="social-box">
                     <li><a href="#"><span class="fa fa-pinterest-p"></span></a></li>
@@ -1680,14 +783,11 @@
                     <li><a href="#"><span class="fa fa-twitter"></span></a></li>
                     <li><a href="#"><span class="fa fa-youtube-play"></span></a></li>
                 </ul>
-                <div class="copyright">&copy; All Right Reserved 2020</div>
             </div>
         </footer>
 
     </div>
-    <!--End pagewrapper-->
-
-    <!--Scroll to top-->
+  
     <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-arrow-circle-up"></span>
     </div>
 
@@ -1701,6 +801,47 @@
     <script src="/assets/js/wow.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
     <script src="/assets/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const recipeSearchInput = document.getElementById('recipe-search');
+            const searchResultsContainer = document.getElementById('search-results');
+
+            // Listen for input event on the search field
+            recipeSearchInput.addEventListener('input', function() {
+                const query = recipeSearchInput.value.trim();
+
+                if (query.length > 0) {
+                    // Fetch matching recipe titles based on user input
+                    fetch(`/recipe-live-search?title=${encodeURIComponent(query)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Clear previous results
+                            searchResultsContainer.innerHTML = '';
+
+                            if (data.length > 0) {
+                                // Display matching results
+                                data.forEach(recipe => {
+                                    const resultItem = document.createElement('div');
+                                    resultItem.className = 'search-result-item';
+                                    resultItem.innerHTML = `<strong>${recipe.title}</strong>`;
+                                    resultItem.addEventListener('click', () => {
+                                        recipeSearchInput.value = recipe.title;
+                                        searchResultsContainer.innerHTML =
+                                            ''; // Clear results after selecting
+                                    });
+                                    searchResultsContainer.appendChild(resultItem);
+                                });
+                            } else {
+                                searchResultsContainer.innerHTML = '<p>No results found</p>';
+                            }
+                        });
+                } else {
+                    // Clear results if input is empty
+                    searchResultsContainer.innerHTML = '';
+                }
+            });
+        });
+    </script>
 
 </body>
 

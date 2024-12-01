@@ -7,6 +7,7 @@
 <link href="/assets/css/bootstrap.css" rel="stylesheet">
 <link href="/assets/css/main.css" rel="stylesheet">
 <link href="/assets/css/responsive.css" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/custom.css">
 
 <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 <link rel="icon" href="images/favicon.png" type="image/x-icon">
@@ -46,31 +47,18 @@
 
 							<div class="navbar-collapse show collapse clearfix" id="navbarSupportedContent">
 								<ul class="navigation clearfix">
-									<li><a href="{{route('dashboard')}}">Home</a>
+									<li ><a href="{{route('dashboard')}}">Home</a>
 										
 									</li>
-									<li class="current"><a href="{{route('about')}}">About Us</a></li>
-									<li class="dropdown"><a href="#">Recipes</a>
-										<ul>
-											<li><a href="recipes.html">Recipes 01</a></li>
-											<li><a href="recipes-2.html">Recipes 02</a></li>
-											<li><a href="recipes-3.html">Recipes 03</a></li>
-											<li><a href="recipes-video.html">Recipes Video</a></li>
-											<li><a href="recipes-detail.html">Recipes Detail 01</a></li>
-											<li><a href="recipes-detail-2.html">Recipes Detail 02</a></li>
-										</ul>
+									<li><a href="{{route('about')}}">About Us</a></li>
+									<li><a href="{{route('recipe')}}">Recipes</a>
+										
 									</li>
-									<li><a href="category.html">Category</a></li>
-									<li class="dropdown"><a href="#">Blog</a>
-										<ul>
-											<li><a href="blog.html">Blog</a></li>
-											<li><a href="blog-single.html">Blog Single</a></li>
-											<li><a href="not-found.html">Not Found / 404</a></li>
-											<li><a href="login.html">Login</a></li>
-											<li><a href="signup.html">Sign Up</a></li>
-										</ul>
+									<li><a href="{{route('category')}}">Category</a></li>
+									<li ><a href="{{route('blog')}}">Blog</a>
+										
 									</li>
-									<li><a href="contact.html">Contact us</a></li>
+									<li><a href="{{route('contact')}}">Contact us</a></li>
 								</ul>
 							</div>
 							
@@ -83,7 +71,8 @@
 									<ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
 										<li class="panel-outer">
 											<div class="form-container">
-												<form method="post" action="https://gico.io/spcica/blog.html">
+												<form method="post" action="{{route('recipe.search')}}">
+													@csrf
 													<div class="form-group">
 														<input type="search" name="field-name" value="" placeholder="Search Here" required>
 														<button type="submit" class="search-btn"><span class="fa fa-search"></span></button>
@@ -96,7 +85,7 @@
 							</div>
 							<ul class="login-info">
 								<li><a href="login.html"><span class="icon fa fa-user"></span>Login</a></li>
-								<li class="recipe"><a href="add-recipe.html"><span class="fa fa-plus-circle"></span>&nbsp; Add Recipe</a></li>
+								<li class="recipe"><a href="{{route('add')}}"><span class="fa fa-plus-circle"></span>&nbsp; Add Recipe</a></li>
 							</ul>
 						</div>
 						
@@ -120,7 +109,7 @@
 	
     <section class="page-title" style="background-image:url(/assets/images/background/10.jpg)">
     	<div class="auto-container">
-			<h1>About Spcica</h1>
+			<h1>About Recipe Finder</h1>
         </div>
     </section>
 	
@@ -129,27 +118,30 @@
 			<div class="inner-container margin-top">
 				
 				<div class="default-form">
-					<form method="post" action="https://gico.io/spcica/contact.html">
+					<form method="post" action="{{ route('recipe.search') }}">
+						@csrf
 						<div class="clearfix">
-							
+
 							<div class="form-group col-lg-3 col-md-6 col-sm-12">
-								<select class="custom-select-box">
-									<option>Categories</option>
-									<option>01</option>
-									<option>02</option>
-									<option>03</option>
-									<option>04</option>
+								<select class="custom-select-box" name="category">
+									<option value="">Select category</option>
+									@foreach ($recipes as $recipe)
+										<option value="{{ $recipe->category }}">{{ $recipe->category }}</option>
+									@endforeach
 								</select>
 							</div>
-							
+
 							<div class="form-group col-lg-7 col-md-6 col-sm-12">
-								<input type="text" name="text" placeholder="Recipe Kayword" required>
+								<input type="text" id="recipe-search" name="title"
+									placeholder="Type a recipe..." autocomplete="off">
+								<div id="search-results" class="search-results-container"></div>
 							</div>
-							
+
 							<div class="form-group col-lg-2 col-md-12 col-sm-12">
-								<button type="submit" class="theme-btn search-btn"><span class="fa fa-search"> Search</span></button>
+								<button type="submit" class="theme-btn search-btn"><span class="fa fa-search">
+										Search</span></button>
 							</div>
-							
+
 						</div>
 					</form>
 				</div>
@@ -175,15 +167,17 @@
 				<div class="content-column col-lg-6 col-md-12 col-sm-12">
 					<div class="inner-column">
 						<div class="sec-title">
-							<div class="title">About us</div>
-							<h2>Our philosophy</h2>
+							<div class="title">About Us</div>
+							<h2>Our Philosophy</h2>
 						</div>
-						<div class="bold-text">Welcome to the wonderful world of beets! I am delighted you are here.</div>
+						<div class="bold-text">Welcome to Recipe Finder, where healthy, delicious meals come to life!</div>
 						<div class="text">
-							<p>A lot of people ask me, "Why beets?" in which I respond with a cheeky grin, "'Beets' Me!" Actually, beets intrigue me as I think they are vibrantly diverse, spectacularly nutritious, and remarkably under-utilized. Perhaps you could say that I "root" for the underdog, er vegetable.</p>
-							<p>I was raised to appreciate fruits and vegetables. Thanks, mom and dad! Although I cannot recall the specific incidents, apparently when I was a toddler, I loved "helping" my parents in the garden by eating all the strawberries: dirt, insects, and all. Yes – to this day, I still love fruits and veggies; the beet happens to be one of the many extraordinary vegetables that I adore.</p>
+							<p>At Recipe Finder, we believe that great meals are more than just food – they're about nourishing your body, mind, and soul. Our mission is simple: to help you find the perfect meal that aligns with your health goals, dietary preferences, and lifestyle. Whether you're looking to cook something quick and healthy for yourself or prepare a meal that will impress guests, we've got you covered.</p>
+							<p>We understand that cooking can be a challenge, especially when you're juggling a busy life. That's why we offer a range of meal options, from easy-to-follow recipes to customized ingredient lists that make healthy cooking fun and accessible for everyone. Our focus is on wholesome, nutrient-dense meals that not only taste great but also support your well-being.</p>
+							<p>From breakfast to dinner, vegan to gluten-free, our goal is to help you create meals that you'll love while keeping your health on track. Let us help you cook the best meal ever, every time!</p>
 						</div>
 					</div>
+					
 				</div>
 				
 			</div>
@@ -196,13 +190,14 @@
 				
 				<div class="content-column col-lg-6 col-md-12 col-sm-12">
 					<div class="inner-column">
-						<h3>Spcica It Founder</h3>
-						<div class="bold-text">When I am not focused on beets, I also enjoy traveling, yoga, reading, laughing, cooking, humanitarian outreach, volunteering with animal rescues, dancing, hugging trees (and anything/anyone who will accept hugs), and eating.  Yes – I love food! </div>
+						<h3>Meet the Founder of Recipe Finder</h3>
+						<div class="bold-text">When I'm not busy developing new meal ideas or perfecting recipes, you’ll find me traveling, practicing yoga, reading, laughing, cooking, and giving back to the community through volunteering. I’m passionate about helping others – whether it’s through animal rescues, humanitarian outreach, or sharing a good meal with friends and family.</div>
 						<div class="text">
-							<p>Although I agree with Michael Scott from The Office that candy is super delicious, and admittedly, I have a rampant sweet tooth that absolutely adores Sour Patch Kids, </p>
-							<p>generally prefer eating happy dance foods. Happy dance foods are the foods that energize me; my cells dance with joy because they are so ridiculously healthy and happy. The beet is one of the MANY "happy dance" foods in my life.</p>
+							<p>I have a true love for food – it’s not just about eating, but about nourishing my body and soul. I believe that the right meals can transform how we feel every day. While I do have a soft spot for indulgent treats (yes, I’ll admit it – chocolate chip cookies are hard to resist!), I generally prefer foods that make me feel energized, healthy, and ready to take on the world.</p>
+							<p>For me, these "happy dance" foods are the ones that fuel my body and give me that burst of energy. They’re the nutrient-packed meals that make my cells literally rejoice. From vibrant vegetables to wholesome grains, these foods are not just good for the body, but they’re delicious, too! My goal with Recipe Finder is to share these happy dance foods with you – meals that nourish your health while delighting your taste buds.</p>
 						</div>
 					</div>
+					
 				</div>
 				
 				<div class="image-column col-lg-6 col-md-12 col-sm-12">
@@ -228,7 +223,7 @@
 						<h2>Your Complete Christmas <br> Dinner Planning Guide</h2>
 						<div class="text">Special occasions call for extraordinary food. Whether your gathering is big or small, casual or formal, here's everything you need to create a crowd-pleasing holiday feast</div>
 					</div>
-					<a href="recipes-2.html" class="theme-btn btn-style-two"><span class="txt">Check Recipe</span></a>
+					<a href="{{route('recipe')}}" class="theme-btn btn-style-two"><span class="txt">Check Recipe</span></a>
 				</div>
 				
 				<div class="column col-lg-6 col-md-12 col-sm-12">
@@ -237,152 +232,42 @@
 						<h2>How to Meal Prep Breakfast Sandwiches for the <br> Week Ahead</h2>
 						<div class="text">Special occasions call for extraordinary food. Whether your gathering is big or small, casual or formal, here's everything you need to create a crowd-pleasing holiday feast</div>
 					</div>
-					<a href="recipes-2.html" class="theme-btn btn-style-two"><span class="txt">Check Recipe</span></a>
+					<a href="{{route('recipe')}}" class="theme-btn btn-style-two"><span class="txt">Check Recipe</span></a>
 				</div>
 				
 			</div>
 		</div>
 	</section>
 	
-	<section class="authors-section style-two">
-		<div class="auto-container">
-			<div class="sec-title centered">
-				<h2>Top Rated Authors</h2>
-				<div class="text">Lorem Ipsum proin gravida nibh vel velit auctor aliquetenean sollicitudin, <br> bibendum auctor, nisi elit consequat gravida nibh</div>
-			</div>
-			
-			<div class="row clearfix">
-				
-				<div class="author-block col-lg-3 col-md-6 col-sm-12">
-					<div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
-						<div class="image">
-							<a href="recipes-detail.html"><img src="/assets/images/resource/author-10.jpg" alt="" /></a>
-						</div>
-						<div class="lower-content">
-							<h4><a href="recipes-detail.html">Kopa Kapi</a></h4>
-							<div class="designation">Head Chef</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="author-block col-lg-3 col-md-6 col-sm-12">
-					<div class="inner-box wow fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
-						<div class="image">
-							<a href="recipes-detail.html"><img src="/assets/images/resource/author-11.jpg" alt="" /></a>
-						</div>
-						<div class="lower-content">
-							<h4><a href="recipes-detail.html">Fariya Keya</a></h4>
-							<div class="designation">Baker</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="author-block col-lg-3 col-md-6 col-sm-12">
-					<div class="inner-box wow fadeInUp" data-wow-delay="400ms" data-wow-duration="1500ms">
-						<div class="image">
-							<a href="recipes-detail.html"><img src="/assets/images/resource/author-12.jpg" alt="" /></a>
-						</div>
-						<div class="lower-content">
-							<h4><a href="recipes-detail.html">Raj Ghosh</a></h4>
-							<div class="designation">Chef</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="author-block col-lg-3 col-md-6 col-sm-12">
-					<div class="inner-box wow fadeInUp" data-wow-delay="600ms" data-wow-duration="1500ms">
-						<div class="image">
-							<a href="recipes-detail.html"><img src="/assets/images/resource/author-13.jpg" alt="" /></a>
-						</div>
-						<div class="lower-content">
-							<h4><a href="recipes-detail.html">Yea Cup lee</a></h4>
-							<div class="designation">Cook head </div>
-						</div>
-					</div>
-				</div>
-				
-			</div>
-		</div>
-	</section>
+
 	
-	<section class="entertaining-section">
+	<section class="most-searched-recipes-section">
 		<div class="auto-container">
-			<div class="sec-title centered">
-				<h2>Most Favourited Recipes</h2>
+			<div class="sec-title centered mt-10">
+				<h2>Most Favourite Recipes</h2>
 			</div>
-			
+	
 			<div class="row clearfix">
-				
-				<div class="entertaining-block col-lg-3 col-md-6 col-sm-12">
-					<div class="inner-box">
-						<div class="image">
-							<a href="recipes-detail.html"><img src="/assets/images/resource/entertaining-1.jpg" alt="" /></a>
-						</div>
-						<div class="lower-content">
-							<ul class="post-meta">
-								<li><span class="icon "></span>21 Jan ,2020</li>
-								<li><span class="icon flaticon-comment"></span>4</li>
-								<li><span class="icon flaticon-heart"></span>5</li>
-							</ul>
-							<h4><a href="recipes-detail.html">Pop-Tarts Dropping New Pretzel Flavors Nationwide</a></h4>
-							<a href="recipes-detail.html" class="theme-btn read-more">Read More</a>
-						</div>
-					</div>
-				</div>
-				
-				<div class="entertaining-block col-lg-3 col-md-6 col-sm-12">
-					<div class="inner-box">
-						<div class="image">
-							<a href="recipes-detail.html"><img src="/assets/images/resource/entertaining-2.jpg" alt="" /></a>
-						</div>
-						<div class="lower-content">
-							<ul class="post-meta">
-								<li><span class="icon "></span>21 Jan ,2020</li>
-								<li><span class="icon flaticon-comment"></span>4</li>
-								<li><span class="icon flaticon-heart"></span>5</li>
-							</ul>
-							<h4><a href="recipes-detail.html">The Cosmic Crisp Apple Is Here and We’re Already Obsessed</a></h4>
-							<a href="recipes-detail.html" class="theme-btn read-more">Read More</a>
+				@foreach ($recipes as $recipe)
+					<div class="entertaining-block col-lg-3 col-md-6 col-sm-12">
+						<div class="inner-box">
+							<div class="image">
+								<a href="{{ route('recipe.show', $recipe->id) }}">
+									<img src="{{ $recipe->image_url ? asset('storage/' . $recipe->image_url) : asset('assets/images/default.jpg') }}" alt="{{ $recipe->title }}" />
+								</a>
+							</div>
+							<div class="lower-content">
+								<ul class="post-meta">
+									<li><span class="icon"></span>{{ $recipe->created_at->format('d M, Y') }}</li>
+									<li><span class="icon flaticon-search"></span>{{ $recipe->search_count }} Searches</li>
+								</ul>
+								<h4><a href="{{ route('recipe.show', $recipe->id) }}">{{ $recipe->title }}</a></h4>
+								<a href="{{ route('recipe.show', $recipe->id) }}" class="theme-btn read-more">Read More</a>
+							</div>
 						</div>
 					</div>
-				</div>
-				
-				<div class="entertaining-block col-lg-3 col-md-6 col-sm-12">
-					<div class="inner-box">
-						<div class="image">
-							<a href="recipes-detail.html"><img src="/assets/images/resource/entertaining-3.jpg" alt="" /></a>
-						</div>
-						<div class="lower-content">
-							<ul class="post-meta">
-								<li><span class="icon "></span>21 Jan ,2020</li>
-								<li><span class="icon flaticon-comment"></span>4</li>
-								<li><span class="icon flaticon-heart"></span>5</li>
-							</ul>
-							<h4><a href="recipes-detail.html">Good Grief! 9 Ideas for a Charlie Brown Christmas Party</a></h4>
-							<a href="recipes-detail.html" class="theme-btn read-more">Read More</a>
-						</div>
-					</div>
-				</div>
-				
-				<div class="entertaining-block col-lg-3 col-md-6 col-sm-12">
-					<div class="inner-box">
-						<div class="image">
-							<a href="recipes-detail.html"><img src="/assets/images/resource/entertaining-4.jpg" alt="" /></a>
-						</div>
-						<div class="lower-content">
-							<ul class="post-meta">
-								<li><span class="icon "></span>21 Jan ,2020</li>
-								<li><span class="icon flaticon-comment"></span>4</li>
-								<li><span class="icon flaticon-heart"></span>5</li>
-							</ul>
-							<h4><a href="recipes-detail.html">How to Remove Sulfites from Wine the Easy Way</a></h4>
-							<a href="recipes-detail.html" class="theme-btn read-more">Read More</a>
-						</div>
-					</div>
-				</div>
-				
+				@endforeach
 			</div>
-			
 		</div>
 	</section>
 	
@@ -416,187 +301,17 @@
 		</div>
 	</section>
 	
-	<section class="instagram-section">
-		<div class="auto-container">
-			<div class="title-box">
-				<div class="profile"><span class="fa fa-pinterest"></span> Follow On Pinterest </div>
-			</div>
-		</div>
-		
-		<div class="instagram-carousel owl-carousel owl-theme">
-			
-			<div class="instagram-block">
-				<div class="inner-box">
-					<figure class="image-box"><img src="/assets/images/resource/instagram-1.jpg" alt=""></figure>
-					<div class="overlay-box">
-						<div class="overlay-inner">
-							<div class="content">
-								<a href="/assets/images/resource/instagram-1.jpg" data-fancybox="instagram" data-caption="" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="instagram-block">
-				<div class="inner-box">
-					<figure class="image-box"><img src="/assets/images/resource/instagram-2.jpg" alt=""></figure>
-					<div class="overlay-box">
-						<div class="overlay-inner">
-							<div class="content">
-								<a href="/assets/images/resource/instagram-2.jpg" data-fancybox="instagram" data-caption="" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="instagram-block">
-				<div class="inner-box">
-					<figure class="image-box"><img src="/assets/images/resource/instagram-3.jpg" alt=""></figure>
-					<div class="overlay-box">
-						<div class="overlay-inner">
-							<div class="content">
-								<a href="/assets/images/resource/instagram-3.jpg" data-fancybox="instagram" data-caption="" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="instagram-block">
-				<div class="inner-box">
-					<figure class="image-box"><img src="/assets/images/resource/instagram-4.jpg" alt=""></figure>
-					<div class="overlay-box">
-						<div class="overlay-inner">
-							<div class="content">
-								<a href="/assets/images/resource/instagram-4.jpg" data-fancybox="instagram" data-caption="" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="instagram-block">
-				<div class="inner-box">
-					<figure class="image-box"><img src="/assets/images/resource/instagram-5.jpg" alt=""></figure>
-					<div class="overlay-box">
-						<div class="overlay-inner">
-							<div class="content">
-								<a href="/assets/images/resource/instagram-5.jpg" data-fancybox="instagram" data-caption="" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="instagram-block">
-				<div class="inner-box">
-					<figure class="image-box"><img src="/assets/images/resource/instagram-6.jpg" alt=""></figure>
-					<div class="overlay-box">
-						<div class="overlay-inner">
-							<div class="content">
-								<a href="/assets/images/resource/instagram-6.jpg" data-fancybox="instagram" data-caption="" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="instagram-block">
-				<div class="inner-box">
-					<figure class="image-box"><img src="/assets/images/resource/instagram-1.jpg" alt=""></figure>
-					<div class="overlay-box">
-						<div class="overlay-inner">
-							<div class="content">
-								<a href="/assets/images/resource/instagram-1.jpg" data-fancybox="instagram" data-caption="" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="instagram-block">
-				<div class="inner-box">
-					<figure class="image-box"><img src="/assets/images/resource/instagram-2.jpg" alt=""></figure>
-					<div class="overlay-box">
-						<div class="overlay-inner">
-							<div class="content">
-								<a href="/assets/images/resource/instagram-2.jpg" data-fancybox="instagram" data-caption="" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="instagram-block">
-				<div class="inner-box">
-					<figure class="image-box"><img src="/assets/images/resource/instagram-3.jpg" alt=""></figure>
-					<div class="overlay-box">
-						<div class="overlay-inner">
-							<div class="content">
-								<a href="/assets/images/resource/instagram-3.jpg" data-fancybox="instagram" data-caption="" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="instagram-block">
-				<div class="inner-box">
-					<figure class="image-box"><img src="/assets/images/resource/instagram-4.jpg" alt=""></figure>
-					<div class="overlay-box">
-						<div class="overlay-inner">
-							<div class="content">
-								<a href="/assets/images/resource/instagram-4.jpg" data-fancybox="instagram" data-caption="" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="instagram-block">
-				<div class="inner-box">
-					<figure class="image-box"><img src="/assets/images/resource/instagram-5.jpg" alt=""></figure>
-					<div class="overlay-box">
-						<div class="overlay-inner">
-							<div class="content">
-								<a href="/assets/images/resource/instagram-5.jpg" data-fancybox="instagram" data-caption="" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="instagram-block">
-				<div class="inner-box">
-					<figure class="image-box"><img src="/assets/images/resource/instagram-6.jpg" alt=""></figure>
-					<div class="overlay-box">
-						<div class="overlay-inner">
-							<div class="content">
-								<a href="/assets/images/resource/instagram-6.jpg" data-fancybox="instagram" data-caption="" class="lightbox-image option-btn" title="Image Caption Here" data-fancybox-group="example-gallery"><span class="fa fa-search"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-		
-	</section>
+
 	
     <footer class="main-footer" style="background-image:url(/assets/images/background/5.png)">
 		<div class="auto-container">
-			<div class="logo">
-				<a href="index.html"><img src="/assets/images/footer-logo.png" alt="" /></a>
-			</div>
+			
 			<ul class="footer-nav">
-				<li><a href="#">Home</a></li>
-				<li><a href="#">Recipes</a></li>
-				<li><a href="#">About us</a></li>
-				<li><a href="#">Events</a></li>
-				<li><a href="#">Blog</a></li>
-				<li><a href="#">Contacts</a></li>
+				<li><a href="{{route('dashboard')}}">Home</a></li>
+				<li><a href="{{route('recipe')}}">Recipes</a></li>
+				<li><a href="{{route('about')}}">About us</a></li>
+				<li><a href="{{route('blog')}}">Blog</a></li>
+				<li><a href="{{route('contact')}}">Contacts</a></li>
 			</ul>
 			<ul class="social-box">
 				<li><a href="#"><span class="fa fa-pinterest-p"></span></a></li>
@@ -605,7 +320,6 @@
 				<li><a href="#"><span class="fa fa-twitter"></span></a></li>
 				<li><a href="#"><span class="fa fa-youtube-play"></span></a></li>
 			</ul>
-			<div class="copyright">&copy; All Right Reserved 2020</div>
 		</div>
 	</footer>
 	
@@ -623,6 +337,47 @@
 <script src="/assets/js/wow.js"></script>
 <script src="/assets/js/jquery-ui.js"></script>
 <script src="/assets/js/script.js"></script>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const recipeSearchInput = document.getElementById('recipe-search');
+		const searchResultsContainer = document.getElementById('search-results');
+
+		// Listen for input event on the search field
+		recipeSearchInput.addEventListener('input', function() {
+			const query = recipeSearchInput.value.trim();
+
+			if (query.length > 0) {
+				// Fetch matching recipe titles based on user input
+				fetch(`/recipe-live-search?title=${encodeURIComponent(query)}`)
+					.then(response => response.json())
+					.then(data => {
+						// Clear previous results
+						searchResultsContainer.innerHTML = '';
+
+						if (data.length > 0) {
+							// Display matching results
+							data.forEach(recipe => {
+								const resultItem = document.createElement('div');
+								resultItem.className = 'search-result-item';
+								resultItem.innerHTML = `<strong>${recipe.title}</strong>`;
+								resultItem.addEventListener('click', () => {
+									recipeSearchInput.value = recipe.title;
+									searchResultsContainer.innerHTML =
+										''; // Clear results after selecting
+								});
+								searchResultsContainer.appendChild(resultItem);
+							});
+						} else {
+							searchResultsContainer.innerHTML = '<p>No results found</p>';
+						}
+					});
+			} else {
+				// Clear results if input is empty
+				searchResultsContainer.innerHTML = '';
+			}
+		});
+	});
+</script>
 
 </body>
 

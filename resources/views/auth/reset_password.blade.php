@@ -52,7 +52,9 @@
                             <form method="POST" action="{{route('password.update')}}">
 
                                 @csrf
-                               bn 
+                                <input type="hidden" name="token" value="{{ old('token',$token) }}">
+
+                            
 
                                 <div class="form-group">
                                     <input type="email" name="email" id="email" placeholder="Email" required value="{{old('email')}}">
