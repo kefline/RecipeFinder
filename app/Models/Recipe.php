@@ -40,4 +40,20 @@ class Recipe extends Model
     {
         return $this->searchLogs->count();
     }
+
+    public function getDecodedDirectionsAttribute()
+    {
+        return json_decode($this->directions, true);
+    }
+    public function getDecodedIngredientsAttribute()
+    {
+        return json_decode($this->ingredients, true) ?? [];
+    }
+
+    public function getDecodeNutritionsAttribute()
+    {
+        return json_decode($this->nutritions, true) ?? [];
+    }
+    
+
 }

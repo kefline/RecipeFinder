@@ -221,24 +221,27 @@
 
 
         </section>
-
+{{-- 
         <section class="entertaining-section">
             <div class="auto-container">
                 <div class="sec-title centered">
                     <h2>Most Favourited Recipes</h2>
                 </div>
 
-                <div class="row clearfix">
+                <div class="row clearfix"> --}}
 
+{{-- 
+                        @foreach ($recipes as $recipe)
                     <div class="entertaining-block col-lg-3 col-md-6 col-sm-12">
+
                         <div class="inner-box">
                             <div class="image">
-                                <a href="recipes-detail.html"><img src="/assets/images/resource/entertaining-1.jpg"
-                                        alt="" /></a>
+                                <a href="recipes-detail.html"> <img src="{{ $recipe->image_url ? asset('storage/' . $recipe->image_url) : asset('assets/images/default.jpg') }}"
+                                    alt="Recipe Image" /></a>
                             </div>
                             <div class="lower-content">
                                 <ul class="post-meta">
-                                    <li><span class="icon "></span>21 Jan ,2020</li>
+                                    <li><span class="icon "></span>{{$recipe->created_at->format('Y-m-d')}}</li>
                                     <li><span class="icon flaticon-comment"></span>4</li>
                                     <li><span class="icon flaticon-heart"></span>5</li>
                                 </ul>
@@ -246,10 +249,13 @@
                                 </h4>
                                 <a href="recipes-detail.html" class="theme-btn read-more">Read More</a>
                             </div>
-                        </div>
+                        </div> 
                     </div>
 
-                    <div class="entertaining-block col-lg-3 col-md-6 col-sm-12">
+                        @endforeach --}}
+                      
+
+                    {{-- <div class="entertaining-block col-lg-3 col-md-6 col-sm-12">
                         <div class="inner-box">
                             <div class="image">
                                 <a href="recipes-detail.html"><img src="images/resource/entertaining-2.jpg"
@@ -304,12 +310,12 @@
                                 <a href="recipes-detail.html" class="theme-btn read-more">Read More</a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
-                </div>
+                {{-- </div>
 
             </div>
-        </section>
+        </section> --}}
 
         <section class="subscribe-section" style="background-image: url(/assets/images/background/9.png)">
             <div class="auto-container">
@@ -361,7 +367,6 @@
                     <li><a href="#"><span class="fa fa-twitter"></span></a></li>
                     <li><a href="#"><span class="fa fa-youtube-play"></span></a></li>
                 </ul>
-                <div class="copyright">&copy; All Right Reserved 2020</div>
             </div>
         </footer>
 

@@ -11,10 +11,15 @@ class RecipeController extends Controller
 
     public function recipe()
     {
-
         $recipes = Recipe::all();
-        return view('recipe', compact('recipes'));
+
+        $categoryCount = $recipes->groupBy('category')->map(function ($item) {
+            return $item->count();
+        });
+
+        return view('recipe', compact('recipes', 'categoryCount'));
     }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -22,8 +27,8 @@ class RecipeController extends Controller
             'description' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
             'tags' => 'required|string',
-            'video_file' => 'nullable|file|mimes:mp4,mov,avi,wmv|max:10240', // Video file validation
-            'video_url' => 'nullable|url', // Allow either a URL or file
+            'video_file' => 'nullable|file|mimes:mp4,mov,avi,wmv|max:10240',
+            'video_url' => 'nullable|url',
             'directions' => 'required|array',
             'directions.*' => 'required|string',
             'peoples' => 'required|integer|min:1|max:100',
@@ -67,9 +72,14 @@ class RecipeController extends Controller
 
     public function show($id)
     {
-        $recipes = Recipe::findOrFail($id);
+        $recipe = Recipe::findOrFail($id);
+        // dd(json_decode($recipe->directions));
+        // dd($recipe->decoded_ingredients);
+    
 
-        return view('recipe-detail', compact('recipes'));
+
+
+        return view('recipe-detail', compact('recipe'));
     }
 
 
